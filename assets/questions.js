@@ -11,11 +11,6 @@ var questions = [
         correct: "Both the <head> section and the <body> section are correct",
     },
     {
-        title: "The external JavaScript file must contain the <script> tag.",
-        choices: ["true", "false"],
-        correct: "false",
-    },
-    {
         title: "How do you create a function in JavaScript?",
         choices: ["function myFunction()", "function = myFunction()", "function:myFunction()", "myFunction = myFunction[]"],
         correct: "function myFunction()",
@@ -28,6 +23,6 @@ var questions = [
     {
         title: "How can you add a comment in a JavaScript?",
         choices: ["<!--This is a Comment-->", "'This is a Comment'", "//This is a Comment", "*This is a comment"],
-        correct: "c",
+        correct: "<!--This is a Comment-->",
     },
 ]
