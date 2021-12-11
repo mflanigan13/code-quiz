@@ -38,23 +38,38 @@
         <div class="container end">
             <div id=score-banner>
                 <h1>All done!</h1>
+                <p id="show-score"></p>
             </div>
             <form id="initials-form" class="initials">
                 <p> Enter Initials:
                     <input type="text" name="initials" id="initials" class="text-input" />
-                    <button class="btn startend" id="sumbit-score" type="submit">Submit</button>
+                    <button class="btn" id="submit-score" type="submit">Submit</button>
                 </p>
             </form>
         </div>
     </div>
 
-    <di id="high-score-container" class="hide"></di>
-
-    <div class="hide" id="correct">
-        <h2>Correct!</h2>
+    <div id="high-score-container" class="hide">
+        <!-- <div class="container" id="scoresTable">
+            <table class="scores">
+                <thead>
+                    <tr><th>Initals</th><th>Scores</th>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+            <div id="score-entry" class="btn-grid"></div>
+        </div> -->
     </div>
-    <div class="hide" id="wrong">
-        <h2>Incorrect!</h2>
+
+    <div class="container">
+        <div class="hide" id="correct">
+            <h2>Correct!</h2>
+        </div>
+        <div class="hide" id="wrong">
+            <h2>Incorrect!</h2>
+        </div>
     </div>
 
     <script src="./assets/questions.js"></script>
