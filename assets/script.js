@@ -25,6 +25,7 @@ backBtn.addEventListener("click", function(){
 var questionEl = document.getElementById("question-container");
 var endContainerEl = document.getElementById("end-container");
 var highScoreContainerEl = document.getElementById("high-score-container");
+var viewHighScoreEl = document.getElementById("view-high-scores");
 var showScoreEl = document.getElementById("show-score");
 var scoreArray = [];
 var answerbuttonsEl = document.getElementById("answer-buttons");
@@ -121,10 +122,6 @@ function formSubmit(){
 };
 
 
-/*
-    displayHighScore() is a function which iterates over the items stored within the localStore
-    and adds each ofthem to a array. The array is then sorted from high to low based on each initials scores.
-*/
 function displayHighScore(){
 
     for (let i = 0; i < localStorage.length; i++) {
