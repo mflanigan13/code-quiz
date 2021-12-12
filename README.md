@@ -9,3 +9,4 @@ This application is a timed coding quiz on JavaScript fundamentals that stores h
 ![alt text](./assets/images/end-container.png "end-container")
 
 ## Deployed Application
+https://mflanigan13.github.io/code-quiz/
