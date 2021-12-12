@@ -1,7 +1,25 @@
 //buttons
-// var btnStartEl = document.querySelector("#start-game");
 var submitScoreBtn = document.getElementById("submit-score");
 var btnStartEl = document.getElementById("start-game");
+var clearBtn = document.getElementById("clear-button");
+var backBtn = document.getElementById("back-button");
+
+btnStartEl.addEventListener("click", startQuiz);
+submitScoreBtn.addEventListener("click", formSubmit);
+
+clearBtn.addEventListener("click", function(){
+    localStorage.clear();
+    document.getElementById("scores-table").innerHTML="";
+});
+
+backBtn.addEventListener("click", function(){
+    highScoreContainerEl.setAttribute("class", "hide");
+    starterContainerEl.removeAttribute("class");
+    document.getElementById("scores-table").remove();
+    document.getElementById("initials-form").reset();
+    totalScore = 0;
+    currentQuestionIndex = 0;
+});
 
 //question-answer elements
 var questionEl = document.getElementById("question-container");
@@ -21,6 +39,8 @@ var currentQuestionIndex = 0;
 var totalScore = 0;
 
 function startQuiz() {
+    time = questions.length * 15;
+
     starterContainerEl.setAttribute("class", "hide");
     questionEl.removeAttribute("class");
 
@@ -34,8 +54,8 @@ function clock() {
     time--;
     timerEl.textContent = time;
 
-    if (time < 1) {
-        endQuiz();
+    if (time < 1 ) {
+        return;
     }
 };
 
@@ -46,7 +66,6 @@ function endQuiz() {
     answerWrongEl.setAttribute("class", "hide");
     endContainerEl.removeAttribute("class");
     showScoreEl.innerHTML = "Score:" + totalScore;
-    submitScoreBtn.setAttribute("onclick", "formSubmit()");
 };
 
 // next question
@@ -87,9 +106,10 @@ function questionClick(c){
 
 };
 
-function formSubmit() {
+function formSubmit(){
     var formInfoEl = document.getElementById('initials').value;
-    document.querySelector(".container").setAttribute("class", "hide");
+    highScoreContainerEl.removeAttribute("class");
+    endContainerEl.setAttribute("class", "hide");
 
     var entry = {
         "initials": formInfoEl,
@@ -97,36 +117,38 @@ function formSubmit() {
     };
     localStorage.setItem(localStorage.length, JSON.stringify(entry));
 
-    // starterContainerEl.setAttribute("class", "hide");
-    // highScoreContainerEl.removeAttribute("class");
-
     displayHighScore();
 };
+
 
 /*
     displayHighScore() is a function which iterates over the items stored within the localStore
     and adds each ofthem to a array. The array is then sorted from high to low based on each initials scores.
 */
 function displayHighScore(){
+
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         const entry = localStorage.getItem(key);
         scoreArray.push(JSON.parse(entry));
     }
-    
 
     scoreArray?.sort((entry1, entry2) => (entry1.score < entry2.score ? 1 : -1))
     
-
-    // var mytable = "<table class=scoresTable`><tr>";
-    // for (var score of scoreArray) {  mytable += "<td>" + score + "</td>"; }
-    // mytable += "</tr></table>";
-    // document.getElementById("scoresTable").innerHTML = mytable;
-
-    for (let j =0; j < scoreArray.length; j++){
-        console.log(scoreArray[j].initials + " " + scoreArray[j].score)
+    var table = document.getElementById("scores-table");
+    for (let j =1; j < scoreArray.length+1; j++){
+        var row = table.insertRow(j);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = scoreArray[j-1].initials;
+        cell2.innerHTML = scoreArray[j-1].score;
     }
+
 };
 
-// btnStartEl.addEventListener("click", startQuiz);
-btnStartEl.setAttribute("onclick", "startQuiz()");
+window.addEventListener('beforeunload', function (e) {
+    // Cancel the event
+    e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+    // Chrome requires returnValue to be set
+    e.returnValue = '';
+});
