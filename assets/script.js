@@ -4,31 +4,11 @@ var btnStartEl = document.getElementById("start-game");
 var clearBtn = document.getElementById("clear-button");
 var backBtn = document.getElementById("back-button");
 
-// event listeners
-btnStartEl.addEventListener("click", startQuiz);
-submitScoreBtn.addEventListener("click", formSubmit);
-
-// clear button 
-clearBtn.addEventListener("click", function(){
-    localStorage.clear();
-    document.getElementById("scores-table").innerHTML="";
-});
-
-// back button
-backBtn.addEventListener("click", function(){
-    highScoreContainerEl.setAttribute("class", "hide");
-    starterContainerEl.removeAttribute("class");
-    document.getElementById("scores-table").remove();
-    document.getElementById("initials-form").reset();
-    totalScore = 0;
-    currentQuestionIndex = 0;
-});
-
 //question-answer elements
 var questionEl = document.getElementById("question-container");
 var endContainerEl = document.getElementById("end-container");
 var highScoreContainerEl = document.getElementById("high-score-container");
-var viewHighScoreEl = document.getElementById("view-high-scores");
+var viewHighScoreEl = document.querySelector(".view-high-scores");
 var showScoreEl = document.getElementById("show-score");
 var scoreArray = [];
 var answerbuttonsEl = document.getElementById("answer-buttons");
@@ -66,6 +46,8 @@ function clock() {
 
 // end quiz
 function endQuiz() {
+    clearInterval(timerId);  
+    timerEl.setAttribute("class", "hide");       
     questionEl.setAttribute("class", "hide");
     answerCorrectEl.setAttribute("class", "hide");
     answerWrongEl.setAttribute("class", "hide");
@@ -115,8 +97,6 @@ function questionClick(c){
 // Initials form
 function formSubmit(){
     var formInfoEl = document.getElementById('initials').value;
-    highScoreContainerEl.removeAttribute("class");
-    endContainerEl.setAttribute("class", "hide");
 
     var entry = {
         "initials": formInfoEl,
@@ -129,6 +109,13 @@ function formSubmit(){
 
 // High Score at the end of game and store in local storage
 function displayHighScore(){
+    event.preventDefault();
+    console.log("it works");
+    highScoreContainerEl.removeAttribute("class");
+    endContainerEl.setAttribute("class", "hide");
+    starterContainerEl.setAttribute("class", "hide");
+    questionEl.setAttribute("class", "hide");
+    timerEl.setAttribute("class", "hide");
 
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -148,6 +135,28 @@ function displayHighScore(){
     }
 
 };
+
+// event listeners
+btnStartEl.addEventListener("click", startQuiz);
+submitScoreBtn.addEventListener("click", formSubmit);
+viewHighScoreEl.addEventListener("click", displayHighScore);
+
+
+// clear button 
+clearBtn.addEventListener("click", function(){
+    localStorage.clear();
+    document.getElementById("scores-table").innerHTML="";
+});
+
+// back button
+backBtn.addEventListener("click", function(){
+    highScoreContainerEl.setAttribute("class", "hide");
+    starterContainerEl.removeAttribute("class");
+    document.getElementById("scores-table").remove();
+    document.getElementById("initials-form").reset();
+    totalScore = 0;
+    currentQuestionIndex = 0;
+});
 
 window.addEventListener('beforeunload', function (e) {
     // Cancel the event
