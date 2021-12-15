@@ -4,14 +4,17 @@ var btnStartEl = document.getElementById("start-game");
 var clearBtn = document.getElementById("clear-button");
 var backBtn = document.getElementById("back-button");
 
+// event listeners
 btnStartEl.addEventListener("click", startQuiz);
 submitScoreBtn.addEventListener("click", formSubmit);
 
+// clear button 
 clearBtn.addEventListener("click", function(){
     localStorage.clear();
     document.getElementById("scores-table").innerHTML="";
 });
 
+// back button
 backBtn.addEventListener("click", function(){
     highScoreContainerEl.setAttribute("class", "hide");
     starterContainerEl.removeAttribute("class");
@@ -39,6 +42,7 @@ var timerId;
 var currentQuestionIndex = 0;
 var totalScore = 0;
 
+// this function starts the quiz
 function startQuiz() {
     time = questions.length * 15;
 
@@ -90,6 +94,7 @@ function nextQuestion() {
 
 };
 
+// when a question is clicked check if correct
 function questionClick(c){
     var cq = questions[currentQuestionIndex].correct;
     if(cq === c){
@@ -107,6 +112,7 @@ function questionClick(c){
 
 };
 
+// Initials form
 function formSubmit(){
     var formInfoEl = document.getElementById('initials').value;
     highScoreContainerEl.removeAttribute("class");
@@ -121,7 +127,7 @@ function formSubmit(){
     displayHighScore();
 };
 
-
+// High Score at the end of game and store in local storage
 function displayHighScore(){
 
     for (let i = 0; i < localStorage.length; i++) {
